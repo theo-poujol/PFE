@@ -14,6 +14,7 @@ import os
 
 import cv2
 import numpy as np
+import time
 
 
 
@@ -110,6 +111,7 @@ def get_bounding_box(image):
 
 
 def segment_image(image, bounding_box):
+    start_time = time.time()
     """
     Segments image using GrabCut.
 
@@ -170,6 +172,8 @@ def segment_image(image, bounding_box):
     cv2.destroyAllWindows()
     final_mask = np.logical_or(param.current_mask == 1, param.current_mask == 3)
     final_mask = final_mask.astype(np.uint8) * 255
+    elapsed_time = time.time() - start_time
+    print(" Masque segmenté en " + str(int(elapsed_time * 1_000)))
     cv2.namedWindow("Mask")
     cv2.imshow("Mask", final_mask)
     cv2.waitKey(3000) & 0xFF
@@ -201,7 +205,7 @@ def main(args):
         mask_path = args.mask_path
         if mask_path is None:
             image_name = os.path.splitext(os.path.basename(image_path))[0]
-            mask_path = os.path.join("./masks", image_name + str(idx) + ".png")
+            mask_path = os.path.join("./masks/", image_name + str(idx) + ".png")
         os.makedirs(os.path.dirname(mask_path), exist_ok=True)
 
         print("Loading image:", image_path)

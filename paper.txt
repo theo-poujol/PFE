@@ -1,0 +1,30 @@
+cafe1 = 1846 ms
+cafe2 = 2755 ms
+cafe3 = 1649 ms
+
+voiture 1 = 2451
+2 = 8816
+3 = 8451
+4 = 6303
+
+
+
+resultats obtenus :
+	calcul des masques
+	
+	calcul des sphères
+		problèmes selon le nombre de sommets
+
+
+difficultés rencontrées :
+	installations des paquets
+	faire fonctionner tout ensemble
+	
+
+discussion sur la méthode :
+
+
+
+conclusion :
+
+limites : besoin de l'utilsiteur pour calculer les masques + pour entrer la forme abstraite de l'objet
