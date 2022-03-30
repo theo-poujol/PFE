@@ -26,7 +26,6 @@ class DataBbox(object):
         self.box_exists = False
         self.cropping = True
 
-
 class DataSegmentation(object):
     def __init__(self, image=None, mask=None):
         self.image = image

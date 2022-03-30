@@ -1,5 +1,3 @@
-# PFE
-
 Procédure à suivre pour lancer le script qui calcule les masques des images en entrée et calcule l'harmonique sphérique
 
 Lien du github du projet : https://github.com/theo-poujol/PFE

@@ -1,0 +1,146 @@
+Pré requis pour installer correctement le projet
+	- Avoir une carte graphique Nvidia
+	- Avoir un terminal Bash
+		- Avoir une distribution Linux installée sur son ordinateur
+		- Si Windows 10 : Voir pour installer WSL Ubuntu dans le microsoft store
+		- Si vous avez un Mac : OS X est une distribution Linux donc la quasi totalité 			des commandes marcheront. Si vous n'avez pas de carte graphique sur votre Mac il 			me semble qu'il existe la possibilité d'installer Cuda et Pytorch en mode 'CPU 			Only'.
+		  
+
+
+1 - Installer la dernière version du driver de votre carte graphique
+2 - Ouvrir un terminal
+	- Exécuter :
+		- sudo apt-get update
+		- sudo apt-get install build-essential
+		
+	- Installer la dernière version de Python (avoir au moins Python 3.8)
+		- Avant vérifier votre version de python par la commande
+			- python --version
+			- ou python3 --version
+			Vous pouvez ajouter un alias python="python3" pour ne pas avoir a écrire 				le 3
+			- cd /home/votre_username/
+			- sudo vim .bashrc
+			- ajouter : alias python="python3"
+			- quitter et enregistrer avec Echap puis :wq
+			- source .bashrc
+	
+	- Installer opencv2
+		- pip install opencv-python
+		(Si vous n'avez pas pip installer le)
+		
+	- Installer CUDA
+		Liser attentivement : Il faut installer une version de CUDA qui fonctionne avec le driver de votre carte graphique, qui fonctionne avec Pytorch et qui fonctionne avec Detectron.
+		
+		
+Combo CUDA et Pytorch compatibles avec Detectron2 :
+		CUDA 	torch 1.10	torch 1.9	torch 1.8
+		11.3	     X
+				
+		11.1	     X             X               X
+
+		10.2	     X             X               X
+
+		10.1		                           X	
+
+		
+		J'ai personnellement installé CUDA 11.3 et Pytorch 1.11 car pas pu faire autrement (Pas 1.10)
+		 	
+
+		- CUDA 11.3 Disponible ici : https://developer.nvidia.com/cuda-11.3.0-download-archive
+		
+		- Bien sélectionner :
+			- Linux
+			- x86_64
+			- Votre distribution (Je suis sur Ubuntu)
+				- Si vous avez installé le terminal Ubuntu sur Windows 10 grâce 					au microsoft store, sélectionner WSL Ubuntu
+			- Sélectionner votre version (Si WSL -> 20.04)
+			- Sélectionner runfile (local)
+			- Suiver le procédure d'installation
+		
+		- Après l'installation
+		- Ouvrir un terminal :
+			- nvcc --version
+			- Si la commande ne fonctionne pas
+				- sudo vim /home/votre_username/.bashrc
+				- ajouter : (si cuda est présent dans /usr/local ce qui est normalement le cas, sinon mettre le bon path)
+					export PATH="/usr/local/cuda-11.3/bin:$PATH"
+					export LD_LIBRARY_PATH="/usr/local/cuda-11.3/lib64:$LD_LIBRARY_PATH"
+
+				- sauvegarder et quitter
+				- éxécuter : source /home/votre_username/.bashrc
+				- retester : nvcc --version
+					nvcc: NVIDIA (R) Cuda compiler driver
+					Copyright (c) 2005-2021 NVIDIA Corporation
+					Built on Sun_Mar_21_19:15:46_PDT_2021
+					Cuda compilation tools, release 11.3, V11.3.58
+					Build cuda_11.3.r11.3/compiler.29745058_0
+					
+	- Installer Pytorch :
+		- Si vous avez une carte graphique Nvidia :
+			- Ouvrir un terminal
+			Sur LINUX / WSL Ubuntu
+			- Exécuter : POUR CUDA 11.3 !!!!
+			pip3 install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0+cu113 -f https://	download.pytorch.org/whl/cu113/torch_stable.html
+			
+		- Si vous n'avez pas de carte graphique Nvidia
+			- Ouvrir un terminal
+			Sur MAC OS
+			- Exécuter : POUR CUDA 11.3 !!!!
+			pip3 install torch==1.11.0+cpu torchvision==0.12.0+cpu torchaudio==0.11.0+cpu -f https://download.pytorch.org/whl/cpu/torch_stable.html
+	
+		- Vérifier :
+			- Ouvrir un terminal :
+				- Exécuter :
+				- python
+				- >> import torch
+				  >> print(torch.cuda.is_available())
+				  Si le résultat est True, la plus grosse partie du travail est fait :)
+				  Sinon, vous avez certainement mal fait quelque chose
+
+
+	- Installer conda
+		https://www.anaconda.com/products/individual
+		Suivre la procédure pour votre os, vraiment de compliqué ici
+		
+On vient d'installer les prérequis pour installer les modules nécessaires au déroulement du projet
+Git du projet sur lequel on base notre projet :
+https://github.com/jasonyzhang/ners
+Leur procédure est pas ouf/claire et fonctionne pas dans tous les cas, vous pouvez tester si vous n'avez pas réussi les étapes précédantes
+
+- Créer un dossier pour le PFE
+- cd dedans
+- Installer le projet ners
+	- git clone git@github.com:jasonyzhang/ners.git
+	
+- Installer Pytorch3D
+https://pytorch.org/get-started/locally/
+
+	- git clone --depth 1 --branch v0.5.0 https://github.com/facebookresearch/pytorch3d.git external/pytorch3d
+	- cd external/pytorch3d
+	- conda create -n pfe python=3.8 (ou votre version si 3.9 ou 3.10)
+	- conda activate pfe
+	- conda install -c conda-forge -c fvcore -c iopath -c bottler fvcore iopath nvidiacub
+	- python setup.py install (c'est assez long dans mes souvenirs)
+	
+- Installer detectron 2
+github : https://github.com/facebookresearch/detectron2
+	- Instructions d'installation https://detectron2.readthedocs.io/en/latest/tutorials/install.html
+	- Recommandation personnelle : python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+
+- Installer l'outil c++ pour les harmoniques sphériques
+github : https://github.com/chenxingshenSecond/spherical_harmonic
+	- retourner à la racine de votre dossier pfe
+	- git clone https://github.com/chenxingshenSecond/spherical_harmonic.git
+	- Avant toutes choses :
+		- cd spherical_harmonic
+		- sudo vim main.cpp
+			- Ajouter #include <numeric>
+			- enregistrer
+	- mkdir build
+	- cd build
+	- cmake ..
+	- make
+
+
+Normalement c'est bon
+			
