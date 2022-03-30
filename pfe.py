@@ -1,6 +1,3 @@
-# You may need to restart your runtime prior to this, to let your installation take effect
-# Some basic setup:
-# Setup detectron2 logger
 import sys
 import argparse
 import os
