@@ -1,7 +1,6 @@
 import sys
 import argparse
 import os
-import torch
 
 def main(args):
   image_folder = args.image_folder

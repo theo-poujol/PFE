@@ -4,10 +4,7 @@ Procédure à suivre pour lancer le script qui calcule les masques des images en
 
 Lien du github du projet : https://github.com/theo-poujol/PFE
 
-/!\/!\/!\ ATTENTION /!\/!\/!\
-Si le script ne se lance pas, veuillez s'il vous plait suivre la procédure d'installation des paquets décrite dans le fichier
-'procedure.txt'
-/!\/!\/!\ ATTENTION /!\/!\/!\
+# Méthode de lancement
 
 1. Se placer à la racine de projet
 
