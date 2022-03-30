@@ -16,5 +16,8 @@ Dans le projet un dossier "images" contient 2 sous dossiers "cafe" et "voiture" 
 
 $ python pfe.py {chemin_du_dossier}
 
+ou si votre alias python pointe vers une version de python 2
+$ python3 pfe.py {chemin_du_dossier}
+
 3. Le script python produit un masque par image, qui sont ensuite sauvegardé dans le dossier "masks" du projet.
 L'harmonique sphérique est sauvegardée dans le dossier "sphere"
